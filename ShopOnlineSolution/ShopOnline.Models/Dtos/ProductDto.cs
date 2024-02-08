@@ -15,5 +15,6 @@ namespace ShopOnline.Models.Dtos
         public int Qty { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public string ImageURL { get; set; }
     }
 }
