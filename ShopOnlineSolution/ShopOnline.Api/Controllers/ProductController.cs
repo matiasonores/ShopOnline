@@ -32,7 +32,6 @@ namespace ShopOnline.Api.Controllers
                 else
                 {
                     var productDtos = products.ConvertToDto(productCategories);
-
                     return Ok(productDtos);
                 }
             }
