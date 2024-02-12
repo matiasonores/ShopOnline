@@ -26,5 +26,6 @@ namespace ShopOnline.Web.Pages
                 ErrorMessage = ex.Message;
             }
         }
+
     }
 }
