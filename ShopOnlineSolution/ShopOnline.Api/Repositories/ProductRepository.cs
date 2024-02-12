@@ -2,6 +2,7 @@
 using ShopOnline.Api.Data;
 using ShopOnline.Api.Entities;
 using ShopOnline.Api.Repositories.Contracts;
+using ShopOnline.Web.Pages;
 
 namespace ShopOnline.Api.Repositories
 {
@@ -20,9 +21,11 @@ namespace ShopOnline.Api.Repositories
             return categories;
         }
 
-        public Task<ProductCategory> GetCategory(int id)
+        public async Task<ProductCategory> GetCategory(int id)
         {
-            throw new NotImplementedException();
+            var category = await shopOnlineDbContext.ProductCategories.SingleOrDefaultAsync(c => c.Id == id);
+
+            return category;
         }
 
         public async Task<IEnumerable<Product>> GetItems()
@@ -32,9 +35,10 @@ namespace ShopOnline.Api.Repositories
             return products;
         }
 
-        public Task<Product> GetProduct(int id)
+        public async Task<Product> GetItem(int id)
         {
-            throw new NotImplementedException();
+            var product = await this.shopOnlineDbContext.Products.FindAsync(id);
+            return product;
         }
     }
 }
