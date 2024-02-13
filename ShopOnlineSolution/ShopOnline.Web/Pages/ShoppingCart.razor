@@ -22,13 +22,16 @@ else
                         <div class="col-md-4">
                             <img src="@item.ProductImageURL" width="300" class="img-thumbnail">
                         </div>
-                    </div>
-                    <div class="col-md-8">
-                        <h5>@item.ProductName</h5>
-                        <div class="mb-4">@item.ProductDescription</div>
-                        <span>Price: <b>@item.Price.ToString("C")</b></span>
-                        <div>
-                            <button class="btn btn-danger sm" @onclick="(() => DeleteCartItem_Click(item.Id))">Remove</button>
+
+                        <div class="col-md-8">
+                            <h5>@item.ProductName</h5>
+                            <div class="mb-4">@item.ProductDescription</div>
+                            <span>Price: <b>@item.Price.ToString("C")</b></span>
+                            <div>
+                                <button class="btn btn-danger sm" @onclick="(() => DeleteCartItem_Click(item.Id))">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 }
