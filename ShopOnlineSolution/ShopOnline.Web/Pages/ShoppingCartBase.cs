@@ -9,7 +9,7 @@ namespace ShopOnline.Web.Pages
         [Inject]
         public IShoppingCartService ShoppingCartService { get; set; }
 
-        public IEnumerable<CartItemDto> ShoppingCartItems { get; set; }
+        public List<CartItemDto> ShoppingCartItems { get; set; }
 
         public string ErrorMessage { get; set; }
         protected override async Task OnInitializedAsync()
@@ -27,13 +27,16 @@ namespace ShopOnline.Web.Pages
         protected async Task DeleteCartItem_Click(int id)
         {
             var cartItemDto = await ShoppingCartService.DeleteItem(id);
+
+            RemoveCartItem(id);
         }
 
         private void RemoveCartItem(int id) 
         {
             var cartItemDto= GetCartItem(id);
 
-            //ShoppingCartItems
+            //Changed return type to List so remove item is easier
+            ShoppingCartItems.Remove(cartItemDto);
         }
 
         private CartItemDto GetCartItem(int id)
