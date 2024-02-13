@@ -23,5 +23,22 @@ namespace ShopOnline.Web.Pages
                 ErrorMessage = ex.Message;
             }
         }
+
+        protected async Task DeleteCartItem_Click(int id)
+        {
+            var cartItemDto = await ShoppingCartService.DeleteItem(id);
+        }
+
+        private void RemoveCartItem(int id) 
+        {
+            var cartItemDto= GetCartItem(id);
+
+            //ShoppingCartItems
+        }
+
+        private CartItemDto GetCartItem(int id)
+        {
+            return ShoppingCartItems.FirstOrDefault(i => i.Id == id);
+        }
     }
 }
