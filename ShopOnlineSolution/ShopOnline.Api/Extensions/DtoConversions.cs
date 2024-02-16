@@ -44,7 +44,7 @@ namespace ShopOnline.Api.Extensions
         {
             return (from cartItem in cartItems
                     join product in products
-                    on cartItem.Id equals product.Id
+                    on cartItem.ProductId equals product.Id
                     select new CartItemDto
                     {
                         Id = cartItem.Id,
@@ -59,6 +59,8 @@ namespace ShopOnline.Api.Extensions
 
                     }).ToList();
         }
+
+
 
         //Converts a cartItem and a product into a CartItemDto
         public static CartItemDto ConvertToDto(this CartItem cartItem, Product product)

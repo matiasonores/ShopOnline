@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using ShopOnline.Models.Dtos;
 using ShopOnline.Web.Services.Contracts;
 
@@ -15,6 +16,9 @@ namespace ShopOnline.Web.Pages
 
         protected string TotalPrice { get; set; }
         protected int TotalQuantity { get; set; }
+
+        [Inject]
+        public IJSRuntime Js { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -63,8 +67,12 @@ namespace ShopOnline.Web.Pages
                     };
                     
                     var returnedUpdateItemDto = await this.ShoppingCartService.UpdateQty(updateItemDto);
-
+                    
+                    UpdateItemTotalPrice(returnedUpdateItemDto);
                     CalculateCartSummaryTotals();
+
+                    //To hide button
+                    await MakeUpdateQtyButtonVisible(id, false);
                 }
                 else
                 {
@@ -72,7 +80,7 @@ namespace ShopOnline.Web.Pages
 
                     if(item != null) 
                     { 
-                        item.Qty = qty;
+                        item.Qty = 1;
                         item.Totalprice = item.Price;
                     }
                 }
@@ -108,6 +116,17 @@ namespace ShopOnline.Web.Pages
         private void SetTotalQuantity()
         {
             TotalQuantity = this.ShoppingCartItems.Sum(p => p.Qty);
+        }
+
+        protected async Task UpdateQty_Input(int id)
+        {
+            //To show button
+            await MakeUpdateQtyButtonVisible(id, true);
+        }
+
+        private async Task MakeUpdateQtyButtonVisible(int id, bool visible)
+        {
+            await Js.InvokeVoidAsync("MakeUpdateQtyButtonVisible", id, visible);
         }
     }
 }
